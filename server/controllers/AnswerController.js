@@ -48,6 +48,49 @@ class AnswerController {
             .catch(next)
     }
 
+    static upvoteAnswer (req,res,next) {
+        let { id } = req.params
+        Answer.findOne({ _id:id })
+        .then( result => {
+            let arrUpVotes = result.upvotes
+            let arrDownVotes = result.downvotes
+            if(arrUpVotes.indexOf(req.loggedUser._id) === -1) {
+                arrUpVotes.push(req.loggedUser._id)
+                if(arrDownVotes.indexOf(req.loggedUser._id) !== -1) {
+                    arrDownVotes.splice(arrDownVotes.indexOf(req.loggedUser._id), 1)
+                }
+            } else {
+                arrUpVotes.splice(arrUpVotes.indexOf(req.loggedUser._id), 1)
+            }
+            return Answer.updateOne({ _id: id },{ upvotes: arrUpVotes, downvotes: arrDownVotes })
+        })
+        .then(_=>{
+            res.status(201).json({ message: 'upvote success' })
+        })
+        .catch(next)
+    }
+    static downvoteAnswer (req,res,next) {
+        let { id } = req.params
+        Answer.findOne({ _id:id })
+        .then(result => {
+            let arrUpVotes = result.upvotes
+            let arrDownVotes = result.downvotes
+            if(arrDownVotes.indexOf(req.loggedUser._id) === -1) {
+                arrDownVotes.push(req.loggedUser._id)
+                if(arrUpVotes.indexOf(req.loggedUser._id) !== -1) {
+                    arrUpVotes.splice(arrUpVotes.indexOf(req.loggedUser._id), 1)
+                }
+            } else {
+                arrDownVotes.splice(arrDownVotes.indexOf(req.loggedUser._id), 1)
+            }
+            return Answer.updateOne({ _id:id },{ upvotes: arrUpVotes, downvotes: arrDownVotes })
+        })
+        .then(_=>{
+            res.status(201).json({ message: 'downvote success' })
+        })
+        .catch(next)
+    }
+
     // static deleteAnswer (req, res, next) {
     //     let { answer_id } = req.params
     //     Answer.findByIdAndDelete( answer_id )

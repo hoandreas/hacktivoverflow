@@ -37,6 +37,7 @@ class QuestionController {
     static findOne (req, res, next) {
         const { id } = req.params
         Question.findById({ _id: id })
+            .populate('answers')
             .then(question => {
                 res.status(200).json(question)
             })
@@ -62,22 +63,65 @@ class QuestionController {
             .catch(next)
     }
 
-    static upvoteQuestion (req, res, next) {
-        const { id } = req.params
-        const voter_id = req.loggedUser.id
-        Question.updateOne({ _id: id }, { $push: { upvotes: voter_id }})
-            .then(result => {
-                res.status(200).json(result)
-            })
-            .catch(next)
-    }
+    // static upvoteQuestion (req, res, next) {
+    //     const { id } = req.params
+    //     const voter_id = req.loggedUser.id
+    //     Question.updateOne({ _id: id }, { $push: { upvotes: voter_id }})
+    //         .then(result => {
+    //             res.status(200).json(result)
+    //         })
+    //         .catch(next)
+    // }
 
-    static downvoteQuestion (req, res, next) {
-        const { id } = req.params
-        const voter_id = req.loggedUser.id
-        Question.updateOne({ _id: id }, { $push: { downvotes: voter_id }})
+    // static downvoteQuestion (req, res, next) {
+    //     const { id } = req.params
+    //     const voter_id = req.loggedUser.id
+    //     Question.updateOne({ _id: id }, { $push: { downvotes: voter_id }})
+    //     .then(result => {
+    //         res.status(200).json(result)
+    //     })
+    //     .catch(next)
+    // }
+
+    static upvoteQuestion (req,res,next) {
+        let { id } = req.params
+        Question.findOne({ _id:id })
+        .then( result => {
+            let arrUpVotes = result.upvotes
+            let arrDownVotes = result.downvotes
+            if(arrUpVotes.indexOf(req.loggedUser._id) === -1) {
+                arrUpVotes.push(req.loggedUser._id)
+                if(arrDownVotes.indexOf(req.loggedUser._id) !== -1) {
+                    arrDownVotes.splice(arrDownVotes.indexOf(req.loggedUser._id), 1)
+                }
+            } else {
+                arrUpVotes.splice(arrUpVotes.indexOf(req.loggedUser._id), 1)
+            }
+            return Question.updateOne({ _id: id },{ upvotes: arrUpVotes, downvotes: arrDownVotes })
+        })
+        .then(_=>{
+            res.status(201).json({ message: 'upvote success' })
+        })
+        .catch(next)
+    }
+    static downvoteQuestion (req,res,next) {
+        let { id } = req.params
+        Question.findOne({ _id:id })
         .then(result => {
-            res.status(200).json(result)
+            let arrUpVotes = result.upvotes
+            let arrDownVotes = result.downvotes
+            if(arrDownVotes.indexOf(req.loggedUser._id) === -1) {
+                arrDownVotes.push(req.loggedUser._id)
+                if(arrUpVotes.indexOf(req.loggedUser._id) !== -1) {
+                    arrUpVotes.splice(arrUpVotes.indexOf(req.loggedUser._id), 1)
+                }
+            } else {
+                arrDownVotes.splice(arrDownVotes.indexOf(req.loggedUser._id), 1)
+            }
+            return Question.updateOne({ _id:id },{ upvotes: arrUpVotes, downvotes: arrDownVotes })
+        })
+        .then(_=>{
+            res.status(201).json({ message: 'downvote success' })
         })
         .catch(next)
     }

@@ -1,5 +1,5 @@
 <template>
-  <div @click.prevent="toQuestionDetailPage()" style="cursor:pointer;">
+  <div @click.prevent="toQuestionDetailPage(QuestionData._id)" style="cursor:pointer;">
     <b-row align-v="center" no-gutters class="p-3 border-bottom border-top">
       <b-col md="1">
         <p class="text-center m-1 p-1">
@@ -25,8 +25,9 @@ export default {
   name: 'QuestionCard',
   props: ['QuestionData'],
   methods: {
-    toQuestionDetailPage () {
-      this.$router.push('/questionDetails')
+    toQuestionDetailPage (questionId) {
+      // this.$router.push('/main/question-details', QuestionData)
+      this.$store.dispatch('getQuestionDetails', questionId)
     }
   }
 }

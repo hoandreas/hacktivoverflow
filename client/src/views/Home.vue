@@ -19,7 +19,7 @@ export default {
   name: 'home',
   methods: {
     toMainPage () {
-      this.$router.push('/main')
+      this.$router.push('/main/question-list')
     }
   }
 }

@@ -2,6 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="warning">
       <b-navbar-brand @click.prevent="goToHome" style="cursor: pointer;"> <i class="fab fa-stack-overflow"></i> Sheaf Deluge </b-navbar-brand>
+      <b-button v-if="this.$store.state.isLogin" @click.prevent="goToUserHomePage" variant="outline-primary" size="sm" class="my-2 my-sm-0" type="submit">My Page</b-button>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <div>
@@ -40,6 +41,9 @@ export default {
     },
     goToHome () {
       this.$router.push('/')
+    },
+    goToUserHomePage () {
+      this.$router.push('/main/user-homepage')
     }
   }
 }
