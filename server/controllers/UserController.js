@@ -11,7 +11,13 @@ class UserController {
         }
         User.create(objUser)
             .then(result => {
-                res.status(201).json(result)
+                let payload = {
+                    id: result._id,
+                    username: result.username,
+                    email: result.email
+                }
+                let token = generateToken(payload)
+                res.status(201).json({ token })
             })
             .catch(next)
     }
