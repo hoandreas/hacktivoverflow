@@ -90,11 +90,16 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-          this.$router.push('/main')
+          this.$router.push('/main/question-list')
         })
         .catch(err => {
           console.log(err)
-          Swal.fire('Errors', `Internal server error`, `error`)
+          if (!localStorage.getItem('token')) {
+            Swal.fire('Errors', `You need to login first`, `error`)
+            this.$router.push('/login')
+          } else {
+            Swal.fire('Errors', `Internal server error`, `error`)
+          }
         })
     }
   }

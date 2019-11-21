@@ -9,7 +9,7 @@ export default {
   name: 'MainPageSideBar',
   methods: {
     goToHome () {
-      this.$router.push('/')
+      this.$router.push('/main/question-list')
     }
   }
 

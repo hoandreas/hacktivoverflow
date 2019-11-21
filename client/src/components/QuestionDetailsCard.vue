@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="col-md-10" style="text-align: left;">
-          <p>{{ this.$store.state.question.desc }}</p>
+          <p v-html="$store.state.question.desc"></p>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="col-md-10" style="text-align: left;">
-            <p>{{ answer.desc }}</p>
+            <p v-html="answer.desc"></p>
           </div>
         </div>
       </div>
@@ -107,31 +107,35 @@ export default {
   },
   methods: {
     postAnswer (questionId) {
-      axios({
-        url: `http://localhost:3000/answers/`,
-        method: 'POST',
-        data: {
-          desc: this.answerDesc,
-          question_id: questionId
-        },
-        headers: {
-          token: localStorage.getItem('token')
-        }
-      })
-        .then(({ data }) => {
-          this.answerDesc = ''
-          Swal.fire({
-            icon: 'success',
-            title: 'Posted an answer!',
-            showConfirmButton: false,
-            timer: 1500
+      if (!this.$store.state.isLogin) {
+        Swal.fire('You need to login first', ` `, `error`)
+      } else {
+        axios({
+          url: `http://localhost:3000/answers/`,
+          method: 'POST',
+          data: {
+            desc: this.answerDesc,
+            question_id: questionId
+          },
+          headers: {
+            token: localStorage.getItem('token')
+          }
+        })
+          .then(({ data }) => {
+            this.answerDesc = ''
+            Swal.fire({
+              icon: 'success',
+              title: 'Posted an answer!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.$store.dispatch('getQuestionDetails', this.$route.params.id)
           })
-          this.$store.dispatch('getQuestionDetails', this.$route.params.id)
-        })
-        .catch(err => {
-          console.log(err)
-          Swal.fire('Errors', `Internal server error`, `error`)
-        })
+          .catch(err => {
+            console.log(err)
+            Swal.fire('Errors', `Internal server error`, `error`)
+          })
+      }
     },
     upvoteAQuestion (id) {
       axios({

@@ -21,7 +21,7 @@ class AnswerController {
     }
 
     static findAll (req, res, next) {
-        let { user_id } = req.body
+        let user_id = req.loggedUser.id
         Answer.find({ user_id })
             .then(answers => {
                 res.status(200).json(answers)

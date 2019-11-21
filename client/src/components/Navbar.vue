@@ -30,6 +30,7 @@ export default {
     },
     logout () {
       localStorage.removeItem('token')
+      localStorage.removeItem('username')
       this.$store.commit('setLogin', false)
       Swal.fire({
         icon: 'success',

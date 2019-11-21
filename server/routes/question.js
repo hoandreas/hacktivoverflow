@@ -3,10 +3,10 @@ const QuestionController = require('../controllers/QuestionController')
 const { authentication, questionAuthorization } = require('../middlewares/auth')
 
 router.get('/', QuestionController.findAll)
+router.get('/allUsersQuestions', authentication, QuestionController.findAllUserQuestion)
+router.get('/:id', QuestionController.findOne)
 router.use(authentication)
 router.post('/', QuestionController.create)
-router.get('/allUsersQuestions', QuestionController.findAllUserQuestion)
-router.get('/:id', QuestionController.findOne)
 router.patch('/upvote/:id', QuestionController.upvoteQuestion)
 router.patch('/downvote/:id', QuestionController.downvoteQuestion)
 

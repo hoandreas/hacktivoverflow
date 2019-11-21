@@ -48,6 +48,16 @@ const routes = [
         path: 'user-homepage',
         name: 'user-homepage',
         component: () => import('../views/UserHomePage.vue')
+      },
+      {
+        path: 'update-question/:id',
+        name: 'update-question',
+        component: () => import('../views/UpdateQuestionPage.vue')
+      },
+      {
+        path: 'update-answer/:id',
+        name: 'update-answer',
+        component: () => import('../views/UpdateAnswerPage.vue')
       }
     ]
   },
