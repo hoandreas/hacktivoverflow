@@ -28,10 +28,9 @@
     <hr />
     <h5 style="text-align: left;">{{ this.$store.state.question.answers.length }} Answer(s)</h5>
     <br />
-    <br />
     <div>
       <div class="container-fluid">
-        <div class="row" v-for="answer in this.$store.state.question.answers" :key="answer._id">
+        <div class="row" v-for="(answer) in this.$store.state.question.answers" :key="answer._id">
           <div class="col-md-2">
             <div style="cursor: pointer;" @click.prevent="upvoteAnAnswer(answer._id)">
               <i class="fas fa-chevron-up"></i>
@@ -72,7 +71,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 import Vue from 'vue'
 import VueQuill from 'vue-quill'
@@ -111,7 +110,7 @@ export default {
         Swal.fire('You need to login first', ` `, `error`)
       } else {
         axios({
-          url: `http://localhost:3000/answers/`,
+          url: `/answers/`,
           method: 'POST',
           data: {
             desc: this.answerDesc,
@@ -133,13 +132,13 @@ export default {
           })
           .catch(err => {
             console.log(err)
-            Swal.fire('Errors', `Internal server error`, `error`)
+            Swal.fire('Errors', `You need to at least write something as your answer, blank field is not valid!`, `error`)
           })
       }
     },
     upvoteAQuestion (id) {
       axios({
-        url: `http://localhost:3000/questions/upvote/${id}`,
+        url: `/questions/upvote/${id}`,
         method: 'PATCH',
         headers: {
           token: localStorage.getItem('token')
@@ -160,7 +159,7 @@ export default {
     },
     downvoteAQuestion (id) {
       axios({
-        url: `http://localhost:3000/questions/downvote/${id}`,
+        url: `/questions/downvote/${id}`,
         method: 'PATCH',
         headers: {
           token: localStorage.getItem('token')
@@ -181,7 +180,7 @@ export default {
     },
     upvoteAnAnswer (id) {
       axios({
-        url: `http://localhost:3000/answers/upvote/${id}`,
+        url: `/answers/upvote/${id}`,
         method: 'PATCH',
         headers: {
           token: localStorage.getItem('token')
@@ -202,7 +201,7 @@ export default {
     },
     downvoteAnAnswer (id) {
       axios({
-        url: `http://localhost:3000/answers/downvote/${id}`,
+        url: `/answers/downvote/${id}`,
         method: 'PATCH',
         headers: {
           token: localStorage.getItem('token')

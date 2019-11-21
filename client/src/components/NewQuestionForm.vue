@@ -38,7 +38,7 @@
 <script>
 import Vue from 'vue'
 import VueQuill from 'vue-quill'
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 Vue.use(VueQuill)
 
@@ -73,7 +73,7 @@ export default {
   methods: {
     postQuestion () {
       axios({
-        url: `http://localhost:3000/questions`,
+        url: `/questions`,
         method: 'POST',
         data: {
           title: this.title,
@@ -98,7 +98,7 @@ export default {
             Swal.fire('Errors', `You need to login first`, `error`)
             this.$router.push('/login')
           } else {
-            Swal.fire('Errors', `Internal server error`, `error`)
+            Swal.fire('Blank field detected', `Please input your question and your question's description.`, `error`)
           }
         })
     }

@@ -4,7 +4,7 @@ function errorHandler(err, req, res, next) {
     const message = err.message || "Internal Server Error"
     if(err.name === 'MongoError' && err.code === 11000) {
         res.status(400).json({
-            msg: 'Email is already registered'
+            msg: 'Email or Username is already registered'
         })
     } else if(err.name === "ValidationError") {
         const errors = []

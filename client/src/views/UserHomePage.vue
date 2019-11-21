@@ -21,7 +21,6 @@ export default {
     this.$store.dispatch('getAllUsersQuestions')
     this.$store.dispatch('getAllUsersAnswers')
   }
-
 }
 </script>
 

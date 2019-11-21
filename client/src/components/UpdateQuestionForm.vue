@@ -42,7 +42,7 @@
 <script>
 import Vue from 'vue'
 import VueQuill from 'vue-quill'
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 Vue.use(VueQuill)
 
@@ -77,7 +77,7 @@ export default {
   methods: {
     updateQuestion (id) {
       axios({
-        url: `http://localhost:3000/questions/${id}`,
+        url: `/questions/${id}`,
         method: 'PUT',
         data: {
           title: this.title,

@@ -43,4 +43,8 @@ export default {
   color: #42b983;
 }
 
+pre {
+  background-color: grey !important;
+}
+
 </style>

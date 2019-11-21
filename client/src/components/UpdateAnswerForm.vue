@@ -22,7 +22,7 @@
 <script>
 import Vue from 'vue'
 import VueQuill from 'vue-quill'
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 
 Vue.use(VueQuill)
@@ -57,7 +57,7 @@ export default {
   methods: {
     updateAnswer (id) {
       axios({
-        url: `http://localhost:3000/answers/${id}`,
+        url: `/answers/${id}`,
         method: 'PUT',
         data: {
           desc: this.answerDesc
@@ -69,7 +69,7 @@ export default {
         .then(({ data }) => {
           Swal.fire({
             icon: 'success',
-            title: 'Question updated!',
+            title: 'Answer updated!',
             showConfirmButton: false,
             timer: 1500
           })

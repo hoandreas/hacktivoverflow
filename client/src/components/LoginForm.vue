@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 
 export default {
@@ -46,7 +46,7 @@ export default {
     },
     login () {
       axios({
-        url: `http://localhost:3000/users/login`,
+        url: `/users/login`,
         method: 'POST',
         data: {
           email: this.email,

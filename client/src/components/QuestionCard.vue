@@ -10,7 +10,7 @@
       <b-col md="1">
         <p class="text-center m-1 p-1">
           {{ QuestionData.answers.length }}
-          <br />answer
+          <br />answers
         </p>
       </b-col>
       <b-col md="9" class="font-weight-bold text-break pl-4">

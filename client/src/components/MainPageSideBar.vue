@@ -10,6 +10,7 @@ export default {
   methods: {
     goToHome () {
       this.$router.push('/main/question-list')
+      this.$store.dispatch('getAllQuestions')
     }
   }
 

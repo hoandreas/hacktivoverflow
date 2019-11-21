@@ -8,11 +8,13 @@ const answerSchema = new Schema (
         },
         user_id: {
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: [true, 'user id is required']
         },
         question_id: {
             type: Schema.Types.ObjectId,
-            ref: 'Question'
+            ref: 'Question',
+            required: [true, 'question id is required']
         },
         upvotes: {
             type: Array,

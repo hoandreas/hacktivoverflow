@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }))
 
 mongoose.connect(urlMongoose, { useNewUrlParser: true, useUnifiedTopology: true, useUnifiedTopology: true, useCreateIndex: true }, function(err) {
     if(err) console.log(`ಥ_ಥ Failed to connect to db`)
-    else console.log(`(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ Connected to db `);
+    else console.log(`(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ Connected to db `)
 })
 
 app.use(cors())

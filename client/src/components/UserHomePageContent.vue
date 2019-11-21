@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 
 export default {
@@ -53,7 +53,7 @@ export default {
   methods: {
     deleteQuestion (questionId) {
       axios({
-        url: `http://localhost:3000/questions/${questionId}`,
+        url: `/questions/${questionId}`,
         method: 'DELETE',
         headers: {
           token: localStorage.getItem('token')

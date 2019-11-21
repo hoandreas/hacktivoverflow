@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 
 export default {
@@ -50,7 +50,7 @@ export default {
     },
     register () {
       axios({
-        url: `http://localhost:3000/users/register`,
+        url: `/users/register`,
         method: 'POST',
         data: {
           username: this.username,

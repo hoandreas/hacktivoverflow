@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import axios from '../apis/axios'
 import Swal from 'sweetalert2'
 import router from '../router/index'
 
@@ -45,7 +45,7 @@ export default new Vuex.Store({
   actions: {
     getAllQuestions ({ commit }) {
       axios({
-        url: `http://localhost:3000/questions`,
+        url: `/questions`,
         method: 'GET'
       })
         .then(({ data }) => {
@@ -58,7 +58,7 @@ export default new Vuex.Store({
     },
     getQuestionDetails ({ commit }, payload) {
       axios({
-        url: `http://localhost:3000/questions/${payload}`,
+        url: `/questions/${payload}`,
         method: 'GET',
         headers: {
           token: localStorage.getItem('token')
@@ -75,7 +75,7 @@ export default new Vuex.Store({
     },
     getAllUsersQuestions ({ commit }) {
       axios({
-        url: `http://localhost:3000/questions/allUsersQuestions`,
+        url: `/questions/allUsersQuestions`,
         method: 'GET',
         headers: {
           token: localStorage.getItem('token')
@@ -91,7 +91,7 @@ export default new Vuex.Store({
     },
     getAllUsersAnswers ({ commit }) {
       axios({
-        url: `http://localhost:3000/answers/`,
+        url: `/answers/`,
         method: 'GET',
         headers: {
           token: localStorage.getItem('token')
@@ -108,7 +108,7 @@ export default new Vuex.Store({
     fetchDataUpdateQuestion ({ commit }, questionId) {
       return new Promise(function (resolve, reject) {
         axios({
-          url: `http://localhost:3000/questions/${questionId}`,
+          url: `/questions/${questionId}`,
           method: 'GET'
         })
           .then(({ data }) => {
@@ -125,7 +125,7 @@ export default new Vuex.Store({
     fetchDataUpdateAnswer ({ commit }, answerId) {
       return new Promise(function (resolve, reject) {
         axios({
-          url: `http://localhost:3000/answers/${answerId}`,
+          url: `/answers/${answerId}`,
           method: 'GET',
           headers: {
             token: localStorage.getItem('token')
