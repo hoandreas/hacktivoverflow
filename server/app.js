@@ -8,13 +8,12 @@ const routes = require('./routes')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3000
-const urlMongoose = 'mongodb://localhost/hacktiv-overflow'
 const errorHandler = require('./middlewares/errorHandler')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-mongoose.connect(urlMongoose, { useNewUrlParser: true, useUnifiedTopology: true, useUnifiedTopology: true, useCreateIndex: true }, function(err) {
+mongoose.connect(process.env.URL_MONGOOSE, { useNewUrlParser: true, useUnifiedTopology: true, useUnifiedTopology: true, useCreateIndex: true }, function(err) {
     if(err) console.log(`ಥ_ಥ Failed to connect to db`)
     else console.log(`(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ Connected to db `)
 })
